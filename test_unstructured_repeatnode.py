@@ -30,8 +30,8 @@ dims = (field.size/least_prime, least_prime, 1)
 
 pts = np.empty(z.shape + (3,), dtype=float)
 pts[..., 0] = x; pts[..., 1] = y; pts[..., 2] = z # assign grid point position
-# sgrid = tvtk.StructuredGrid(dimensions=dims, points=pts) # create a structured grid object
-sgrid = tvtk.UnstructuredGrid(points=pts) # create a structured grid object
+sgrid = tvtk.StructuredGrid(dimensions=dims, points=pts) # create a structured grid object
+# sgrid = tvtk.UnstructuredGrid(points=pts) # create a structured grid object
 sgrid.point_data.scalars = (field).ravel(order='F') # assign snapshot value
 
 sgrid.point_data.scalars.name = 'vz' # name it

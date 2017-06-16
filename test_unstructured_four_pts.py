@@ -25,15 +25,22 @@ pts[..., 1] = yy.reshape(xx.size)
 pts[..., 2] = zz.reshape(xx.size)
 
 
-ugrid = tvtk.StructuredGrid(dimensions=(xx.shape[0], xx.shape[1], 1), points=pts) # create a structured grid object
-# ugrid = tvtk.UnstructuredGrid(points=pts) # create a structured grid object
+# ugrid = tvtk.StructuredGrid(dimensions=(xx.shape[0], xx.shape[1], 1), points=pts) # create a structured grid object
+
+ugrid = tvtk.UnstructuredGrid(points=pts) # create a structured grid object
+# tets = np.arange(xx.size)
+# tet_type = tvtk.Tetra().cell_type
+# ug = tvtk.UnstructuredGrid(points=points)
+# ugrid.set_cells(tet_type, np.array([tets]))
+
+
 # ugrid.point_data.scalars = (field).ravel(order='F') # assign snapshot value
 ugrid.point_data.scalars = field # assign snapshot value
 
 ugrid.point_data.scalars.name = 'vz' # name it
 
-# outfname='./test_4_pts_unstructured.vtu'
-outfname='./test_4_pts_structured.vts'
+outfname='./test_4_pts_unstructured.vtk'
+# outfname='./test_4_pts_structured.vtk'
 write_data(ugrid, outfname)
 
 # dset.close()
