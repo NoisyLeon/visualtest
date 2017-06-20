@@ -12,7 +12,7 @@ import numpy as np
 
 x= np.arange(0, 10, 1);
 y= np.arange(0, 10, 1);
-z= np.arange(0, 10, 0.1);
+z= np.arange(0, 1, 0.1);
 
 xx, yy =np.meshgrid(x, y)
 
