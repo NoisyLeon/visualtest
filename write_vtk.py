@@ -306,7 +306,7 @@ def write_rectilinear_vtk(fname, x, y, z, v, dataname='scalars'):
         fid.write('vtk output\n')
         fid.write('ASCII\n')
         fid.write('DATASET RECTILINEAR_GRID\n')
-        fid.write('DIMENSIONS %d %d %d' %(nx, ny, nz))
+        fid.write('DIMENSIONS %d %d %d\n' %(nx, ny, nz))
         # grid coordinate
         fid.write('X_COORDINATES %d double\n' %nx)
         for i in xrange(nx): fid.write(str(x[i])+'\n')
@@ -370,6 +370,7 @@ x = np.append(1., x)
 x = np.append(0., x)
 data = np.ones((x.size, y.size, z.size))
 data[1, :, :] = -1.
+# data[0, :, :] = -1.  # discontinuity
 
 write_unstructured_vtk(outdir+'unstructured.vtk', x,y,z, data)
 write_structured_vtk(outdir+'structured.vtk', x,y,z+2, data)
@@ -380,7 +381,6 @@ xx, yy, zz2 =np.meshgrid(x, y, z+8, indexing='ij')
 N=xx.size
 write_unstructured_vtk_irregular(outdir+'unstructured_irregular.vtk', xx.reshape(N), yy.reshape(N) ,zz1.reshape(N), data.reshape(N))
 write_polydata_vtk(outdir+'polydata.vtk', xx.reshape(N), yy.reshape(N) ,zz2.reshape(N), data.reshape(N))
-
 
 
 """test 3
@@ -420,6 +420,7 @@ if not os.path.isdir(outdir): os.makedirs(outdir)
 theta   = np.arange(0, 361, 1)/180.*np.pi
 r       = np.arange(0.1, 1.1, 0.1)
 z       = np.array([0., 1.])
+# z       = np.array([0.]) # slice
 
 # 
 data    = np.random.rand(r.size, theta.size, z.size)
